@@ -26,7 +26,7 @@ class FoliApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(title: 'Foli App'),
+      home: const LoginScreen(title: 'FoliApp'),
     );
   }
 }
