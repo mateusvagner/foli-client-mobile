@@ -17,31 +17,44 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset('assets/images/sloth.jpg'),
-              const SizedBox(
-                height: 16.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              "Bem-vindo!",
+              style: TextStyle(
+                fontSize: 32.0,
               ),
-              SizedBox(
+            ),
+            const SizedBox(
+              height: 24.0,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.6 / 2),
+              child: Image.asset(
+                'assets/images/sloth.jpg',
                 width: MediaQuery.of(context).size.width * 0.6,
-                child: ElevatedButton(
-                  child: const Text("Login"),
-                  onPressed: () {},
-                ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: OutlinedButton(
-                  child: const Text("Crie uma conta"),
-                  onPressed: () {},
-                ),
-              )
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 24.0,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: ElevatedButton(
+                child: const Text("Login"),
+                onPressed: () {},
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: OutlinedButton(
+                child: const Text("Crie uma conta"),
+                onPressed: () {},
+              ),
+            )
+          ],
         ),
       ),
     );
