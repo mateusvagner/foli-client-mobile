@@ -1,2 +1,2 @@
-# foli-client-mobile
+# foliApp Mobile
 Client mobile for the FoliApp
