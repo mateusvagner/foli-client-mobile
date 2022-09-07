@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/user/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, required this.title}) : super(key: key);
+class InitialScreen extends StatefulWidget {
+  const InitialScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<InitialScreen> createState() => _InitialScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _InitialScreenState extends State<InitialScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
               "Bem-vindo!",
@@ -44,7 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
               width: MediaQuery.of(context).size.width * 0.6,
               child: ElevatedButton(
                 child: const Text("Login"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  );
+                },
               ),
             ),
             SizedBox(

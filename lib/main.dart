@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'login_screen.dart';
+import 'user/initial_screen.dart';
 
 void main() {
   runApp(const FoliApp());
@@ -26,9 +26,7 @@ class FoliApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(title: 'FoliApp'),
+      home: const InitialScreen(title: 'FoliApp'),
     );
   }
 }
-
-
