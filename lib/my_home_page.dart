@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/design_system/foli_button.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -20,6 +21,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _busyButton = false;
 
   void _incrementCounter() {
     setState(() {
@@ -29,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      _busyButton = !_busyButton;
     });
   }
 
@@ -73,13 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            ElevatedButton(
-              child: const Text("Sign In"),
-              onPressed: () {},
-            ),
-            ElevatedButton(
-              child: const Text("Sign Up"),
-              onPressed: () {},
+            FoliButton(
+              title: "Foli Button",
+              busy: _busyButton,
             )
           ],
         ),
