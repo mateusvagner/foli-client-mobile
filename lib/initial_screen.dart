@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/user/create_account_screen.dart';
 import 'package:foli_client_mobile/user/login_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -19,9 +20,12 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            const SizedBox(
+              height: 48.0,
+            ),
             const Text(
               "Bem-vindo!",
               style: TextStyle(
@@ -49,7 +53,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
                   );
                 },
               ),
@@ -58,7 +63,13 @@ class _InitialScreenState extends State<InitialScreen> {
               width: MediaQuery.of(context).size.width * 0.6,
               child: OutlinedButton(
                 child: const Text("Crie uma conta"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreateAccountScreen()),
+                  );
+                },
               ),
             )
           ],

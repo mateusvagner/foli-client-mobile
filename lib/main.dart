@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'user/initial_screen.dart';
+import 'initial_screen.dart';
 
 void main() {
   runApp(const FoliApp());

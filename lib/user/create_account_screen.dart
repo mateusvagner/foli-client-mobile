@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+import '../utils/text_form_field_validator.dart';
+
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  String _password = "";
+  String _name = "";
   String _email = "";
+  String _password = "";
 
   bool _isPasswordHidden = true;
+
+  void setName(String name) {
+    setState(() {
+      _name = name;
+    });
+  }
 
   void setEmail(String email) {
     setState(() {
@@ -38,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("Crie sua conta"),
       ),
       body: Form(
         key: _formKey,
@@ -48,6 +56,15 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              TextFormField(
+                validator: TextFormFieldValidator.nameValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: setName,
+                decoration: const InputDecoration(labelText: 'Nome'),
+              ),
+              const SizedBox(
+                height: 24.0,
+              ),
               TextFormField(
                 validator: TextFormFieldValidator.emailValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -80,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
-                  child: const Text("Login"),
+                  child: const Text("Criar conta"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // TODO

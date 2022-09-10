@@ -30,6 +30,17 @@ class TextFormFieldValidator {
     return null;
   }
 
+  static String? nameValidator(String? value) {
+    if (_isNullOrEmpty(value)) {
+      return 'Esse campo é obrigatório';
+    }
+
+    if (value!.length < 3) {
+      return 'O nome deve conter três caracteres ou mais';
+    }
+    return null;
+  }
+
   static String? emailValidator(String? value) {
     if (_isNullOrEmpty(value)) {
       return 'Você deve preencher seu e-mail';
