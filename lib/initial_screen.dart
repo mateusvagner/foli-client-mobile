@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/user/create_account_screen.dart';
 import 'package:foli_client_mobile/user/login_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -58,7 +59,12 @@ class _InitialScreenState extends State<InitialScreen> {
               width: MediaQuery.of(context).size.width * 0.6,
               child: OutlinedButton(
                 child: const Text("Crie uma conta"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
+                  );
+                },
               ),
             )
           ],
