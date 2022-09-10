@@ -11,10 +11,22 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  String _password = "";
+  String _email = "";
+
   bool _isPasswordHidden = true;
 
-  String _email = "";
-  String _password = "";
+  void setEmail(String email) {
+    setState(() {
+      _email = email;
+    });
+  }
+
+  void setPassword(String password) {
+    setState(() {
+      _password = password;
+    });
+  }
 
   void changePasswordVisibility() {
     setState(() {
@@ -39,11 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 validator: TextFormFieldValidator.emailValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value) {
-                  setState(() {
-                    _email = value;
-                  });
-                },
+                onChanged: setEmail,
                 decoration: const InputDecoration(labelText: 'E-mail'),
               ),
               const SizedBox(
@@ -53,11 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 validator: TextFormFieldValidator.passwordValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 obscureText: _isPasswordHidden,
-                onChanged: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
+                onChanged: setPassword,
                 decoration: InputDecoration(
                   labelText: "Senha",
                   suffixIcon: IconButton(
