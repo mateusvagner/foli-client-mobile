@@ -20,9 +20,12 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            const SizedBox(
+              height: 48.0,
+            ),
             const Text(
               "Bem-vindo!",
               style: TextStyle(
@@ -50,7 +53,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
                   );
                 },
               ),
@@ -62,7 +66,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CreateAccountScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const CreateAccountScreen()),
                   );
                 },
               ),
