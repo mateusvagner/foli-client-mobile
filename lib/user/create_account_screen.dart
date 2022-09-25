@@ -50,6 +50,30 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     });
   }
 
+  void saveNewUser(BuildContext context) {
+    NewUserResource newUserResource = NewUserResource(
+      name: _name,
+      email: _email,
+      password: _password,
+    );
+
+    _userService
+        .postNewUser(newUserResource)
+        .then((createdUser) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      'Usuário ${createdUser?.name}  foi salvo com sucesso!'),
+                ),
+              )
+            })
+        .onError((error, stackTrace) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Algo deu errado!')),
+              )
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,27 +132,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   child: const Text("Criar conta"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      NewUserResource newUserResource = NewUserResource(
-                        name: _name,
-                        email: _email,
-                        password: _password,
-                      );
-
-                      _userService
-                          .postNewUser(newUserResource)
-                          .then((createdUser) => {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Usuário ${createdUser?.name}  foi salvo com sucesso!')),
-                                )
-                              })
-                          .onError((error, stackTrace) => {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Algo deu errado!')),
-                                )
-                              });
+                      saveNewUser(context);
                     }
                   },
                 ),
