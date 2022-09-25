@@ -1,12 +1,44 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/resource/new_user_resource.dart';
+import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
+import 'package:foli_client_mobile/service/user_service.dart';
+import 'package:foli_client_mobile/service/user_service_url.dart';
 
 import '../utils/text_form_field_validator.dart';
 
 class CreateAccountScreen extends StatefulWidget {
-  const CreateAccountScreen({Key? key}) : super(key: key);
+  CreateAccountScreen({Key? key}) : super(key: key);
 
   @override
   State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+
+  final UserService _userService =
+      DioUserService(userServiceURL: UserServiceURL());
+
+  Future<void> createUser(
+    String name,
+    String email,
+    String password,
+    BuildContext context,
+    Function(bool) callback,
+  ) async {
+    NewUserResource newUserResource = NewUserResource(
+      name: name,
+      email: email,
+      password: password,
+    );
+
+    var createdUser = await _userService.postNewUser(newUserResource);
+
+    if (kDebugMode) {
+      print(createdUser?.name);
+      print(createdUser?.email);
+      print(createdUser?.password);
+    }
+
+    callback.call(createdUser != null);
+  }
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
@@ -100,12 +132,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   child: const Text("Criar conta"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // TODO
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                      CreateAccountScreen().createUser(
+                          _name, _email, _password, context, (success) {
+                        if (!mounted) return;
+
+                        if (success) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Usuário salvo com sucesso!')),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Algo deu errado!')),
+                          );
+                        }
+                      });
                     }
                   },
                 ),

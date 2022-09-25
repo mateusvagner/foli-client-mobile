@@ -22,7 +22,8 @@ class DioUserService implements UserService {
 
       return NewUserResource.fromMap(response.data);
     } catch (e) {
-      rethrow;
+      // TODO implement error handling
+      return null;
     }
   }
 }
