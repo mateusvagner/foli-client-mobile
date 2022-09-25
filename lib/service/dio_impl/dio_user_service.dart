@@ -5,6 +5,9 @@ import 'package:foli_client_mobile/service/user_service.dart';
 import 'package:foli_client_mobile/service/user_service_url.dart';
 
 class DioUserService implements UserService {
+  
+  final Dio _dio = Dio();
+
   @override
   UserServiceURL userServiceURL;
 
@@ -15,7 +18,7 @@ class DioUserService implements UserService {
   @override
   Future<NewUserResource?> postNewUser(NewUserResource newUserResource) async {
     try {
-      var response = await Dio().post(
+      var response = await _dio.post(
         userServiceURL.postNewUser,
         data: newUserResource.toMap(),
       );
