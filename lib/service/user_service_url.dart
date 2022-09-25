@@ -1,12 +1,11 @@
 class UserServiceURL {
 
-  // static const String baseUrl = "http://localhost:8080";
-  static const String baseUrl = "http://10.0.2.2:8080";
+  static const String _baseUrl = "http://10.0.2.2:8080";
+  static const String _basePath = "/user";
 
-  static const String basePath = "/user";
+  String postNewUser;
 
-  static const String postNewUser = "/new";
-
-  UserServiceURL();
-
+  UserServiceURL({
+    this.postNewUser = "$_baseUrl$_basePath/new",
+  });
 }

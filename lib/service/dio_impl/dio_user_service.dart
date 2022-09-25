@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 
 import 'package:foli_client_mobile/resource/new_user_resource.dart';
@@ -16,16 +14,15 @@ class DioUserService implements UserService {
 
   @override
   Future<NewUserResource?> postNewUser(NewUserResource newUserResource) async {
-    String url = '${UserServiceURL.baseUrl}${UserServiceURL.basePath}${UserServiceURL.postNewUser}';
     try {
-      var data = newUserResource.toMap();
-      var response = await Dio().post(url, data: data);
-      var teste = NewUserResource.fromMap(response.data);
-      return teste;
+      var response = await Dio().post(
+        userServiceURL.postNewUser,
+        data: newUserResource.toMap(),
+      );
 
+      return NewUserResource.fromMap(response.data);
     } catch (e) {
       rethrow;
     }
   }
-
 }
