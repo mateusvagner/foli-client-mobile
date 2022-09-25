@@ -8,41 +8,17 @@ import 'package:foli_client_mobile/service/user_service_url.dart';
 import '../utils/text_form_field_validator.dart';
 
 class CreateAccountScreen extends StatefulWidget {
-  CreateAccountScreen({Key? key}) : super(key: key);
+  const CreateAccountScreen({Key? key}) : super(key: key);
 
   @override
   State<CreateAccountScreen> createState() => _CreateAccountScreenState();
-
-  final UserService _userService =
-      DioUserService(userServiceURL: UserServiceURL());
-
-  Future<void> createUser(
-    String name,
-    String email,
-    String password,
-    BuildContext context,
-    Function(bool) callback,
-  ) async {
-    NewUserResource newUserResource = NewUserResource(
-      name: name,
-      email: email,
-      password: password,
-    );
-
-    var createdUser = await _userService.postNewUser(newUserResource);
-
-    if (kDebugMode) {
-      print(createdUser?.name);
-      print(createdUser?.email);
-      print(createdUser?.password);
-    }
-
-    callback.call(createdUser != null);
-  }
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  final UserService _userService =
+      DioUserService(userServiceURL: UserServiceURL());
 
   String _name = "";
   String _email = "";
@@ -132,21 +108,27 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   child: const Text("Criar conta"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      CreateAccountScreen().createUser(
-                          _name, _email, _password, context, (success) {
-                        if (!mounted) return;
+                      NewUserResource newUserResource = NewUserResource(
+                        name: _name,
+                        email: _email,
+                        password: _password,
+                      );
 
-                        if (success) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Usuário salvo com sucesso!')),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Algo deu errado!')),
-                          );
-                        }
-                      });
+                      _userService
+                          .postNewUser(newUserResource)
+                          .then((createdUser) => {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Usuário ${createdUser?.name}  foi salvo com sucesso!')),
+                                )
+                              })
+                          .onError((error, stackTrace) => {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Algo deu errado!')),
+                                )
+                              });
                     }
                   },
                 ),

@@ -5,7 +5,7 @@ import 'package:foli_client_mobile/service/user_service.dart';
 import 'package:foli_client_mobile/service/user_service_url.dart';
 
 class DioUserService implements UserService {
-  
+
   final Dio _dio = Dio();
 
   @override
