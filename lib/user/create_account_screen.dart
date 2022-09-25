@@ -1,4 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/resource/new_user_resource.dart';
+import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
+import 'package:foli_client_mobile/service/user_service.dart';
+import 'package:foli_client_mobile/service/user_service_url.dart';
 
 import '../utils/text_form_field_validator.dart';
 
@@ -11,6 +16,9 @@ class CreateAccountScreen extends StatefulWidget {
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  final UserService _userService =
+      DioUserService(userServiceURL: UserServiceURL());
 
   String _name = "";
   String _email = "";
@@ -40,6 +48,30 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     setState(() {
       _isPasswordHidden = !_isPasswordHidden;
     });
+  }
+
+  void saveNewUser(BuildContext context) {
+    NewUserResource newUserResource = NewUserResource(
+      name: _name,
+      email: _email,
+      password: _password,
+    );
+
+    _userService
+        .postNewUser(newUserResource)
+        .then((createdUser) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      'Usuário ${createdUser?.name}  foi salvo com sucesso!'),
+                ),
+              )
+            })
+        .onError((error, stackTrace) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Algo deu errado!')),
+              )
+            });
   }
 
   @override
@@ -100,12 +132,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   child: const Text("Criar conta"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // TODO
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                      saveNewUser(context);
                     }
                   },
                 ),
