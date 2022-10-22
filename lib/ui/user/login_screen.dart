@@ -2,9 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
 
-import '../../service/dio_factory.dart';
+import '../../service/dio_impl/dio_factory.dart';
 import '../../service/dio_impl/dio_user_service.dart';
-import '../../service/interceptor/refresh_token_interceptor.dart';
 import '../../service/user_service.dart';
 
 class LoginScreen extends StatefulWidget {
