@@ -17,8 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final UserService _userService = DioUserService(
-      DioFactory.createDio()..interceptors.add(RefreshTokenInterceptor()));
+  final UserService _userService = DioUserService(DioFactory.createDio());
 
   String _password = "";
   String _email = "";

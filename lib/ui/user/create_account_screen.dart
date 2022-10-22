@@ -18,8 +18,7 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final UserService _userService = DioUserService(
-      DioFactory.createDio()..interceptors.add(RefreshTokenInterceptor()));
+  final UserService _userService = DioUserService(DioFactory.createDio());
 
   String _name = "";
   String _email = "";
