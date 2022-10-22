@@ -36,6 +36,7 @@ class RefreshTokenInterceptor  extends Interceptor {
 
     return super.onResponse(response, handler);
   }
+
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (kDebugMode) {
