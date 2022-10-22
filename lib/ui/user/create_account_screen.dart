@@ -5,7 +5,7 @@ import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
 import 'package:foli_client_mobile/service/user_service.dart';
 import 'package:foli_client_mobile/service/user_service_url.dart';
 
-import '../utils/text_form_field_validator.dart';
+import '../../utils/text_form_field_validator.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
