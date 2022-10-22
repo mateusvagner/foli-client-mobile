@@ -1,11 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/resource/new_user_resource.dart';
+import 'package:foli_client_mobile/service/dio_factory.dart';
 import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
 import 'package:foli_client_mobile/service/user_service.dart';
-import 'package:foli_client_mobile/service/user_service_url.dart';
+import 'package:foli_client_mobile/ui/user/login_screen.dart';
 
-import '../utils/text_form_field_validator.dart';
+import '../../service/interceptor/refresh_token_interceptor.dart';
+import '../../utils/text_form_field_validator.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -17,8 +18,7 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final UserService _userService =
-      DioUserService(userServiceURL: UserServiceURL());
+  final UserService _userService = DioUserService(DioFactory.createDio());
 
   String _name = "";
   String _email = "";
@@ -65,7 +65,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   content: Text(
                       'Usuário ${createdUser?.name}  foi salvo com sucesso!'),
                 ),
-              )
+              ),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen())),
             })
         .onError((error, stackTrace) => {
               ScaffoldMessenger.of(context).showSnackBar(

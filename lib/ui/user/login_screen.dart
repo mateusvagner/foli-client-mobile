@@ -1,5 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
+
+import '../../service/dio_factory.dart';
+import '../../service/dio_impl/dio_user_service.dart';
+import '../../service/interceptor/refresh_token_interceptor.dart';
+import '../../service/user_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,6 +16,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  final UserService _userService = DioUserService(DioFactory.createDio());
 
   String _password = "";
   String _email = "";
@@ -32,6 +40,23 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isPasswordHidden = !_isPasswordHidden;
     });
+  }
+
+  void logInUser(BuildContext context) {
+    _userService
+        .getAccessToken(_email, _password)
+        .then((token) async => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Token $token gerado com sucesso!'),
+                ),
+              ),
+            })
+        .onError((error, stackTrace) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Algo deu errado!')),
+              )
+            });
   }
 
   @override
@@ -83,12 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text("Login"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // TODO
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                      logInUser(context);
                     }
                   },
                 ),
