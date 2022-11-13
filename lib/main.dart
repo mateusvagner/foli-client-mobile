@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/ui/user/create_account_screen.dart';
+import 'package:foli_client_mobile/ui/user/login_screen.dart';
 
 import 'initial_screen.dart';
 
@@ -26,7 +28,13 @@ class FoliApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const InitialScreen(title: 'FoliApp'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const InitialScreen(title: 'FoliApp'),
+        '/login': (context) => const LoginScreen(),
+        '/createAccount': (context) => const CreateAccountScreen(),
+      },
+      // home: const InitialScreen(title: 'FoliApp'),
     );
   }
 }

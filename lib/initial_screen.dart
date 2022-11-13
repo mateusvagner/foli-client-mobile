@@ -51,11 +51,7 @@ class _InitialScreenState extends State<InitialScreen> {
               child: ElevatedButton(
                 child: const Text("Login"),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
-                  );
+                  Navigator.pushNamed(context, '/login');
                 },
               ),
             ),
