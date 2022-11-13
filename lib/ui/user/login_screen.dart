@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../service/dio_impl/dio_factory.dart';
 import '../../service/dio_impl/dio_user_service.dart';
 import '../../service/user_service.dart';
+import '../../shared_preferences_keys.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -41,6 +42,13 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void saveToken(String? token) async {
+    if (token != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(SharedPreferencesKeys.jwtToken.name, token);
+    }
+  }
+
   void logInUser(BuildContext context) {
     _userService
         .getAccessToken(_email, _password)
@@ -50,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   content: Text('Token $token gerado com sucesso!'),
                 ),
               ),
+              saveToken(token),
             })
         .onError((error, stackTrace) => {
               ScaffoldMessenger.of(context).showSnackBar(
