@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'package:foli_client_mobile/resource/new_user_resource.dart';
 import 'package:foli_client_mobile/service/user_service.dart';
-import 'package:foli_client_mobile/shared_preferences_keys.dart';
+import 'package:foli_client_mobile/data/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioUserService implements UserService {

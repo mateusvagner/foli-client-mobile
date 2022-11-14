@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../service/dio_impl/dio_factory.dart';
 import '../../service/dio_impl/dio_user_service.dart';
@@ -50,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   content: Text('Token $token gerado com sucesso!'),
                 ),
               ),
+              Navigator.pushNamed(context, '/homeScreen'),
             })
         .onError((error, stackTrace) => {
               ScaffoldMessenger.of(context).showSnackBar(
