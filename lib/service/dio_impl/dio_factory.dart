@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:foli_client_mobile/service/interceptor/refresh_token_interceptor.dart';
+import 'package:foli_client_mobile/service/dio_impl/dio_refresh_token_interceptor.dart';
 
 class DioFactory {
   static Dio createDio() {
@@ -12,6 +12,6 @@ class DioFactory {
   }
 
   static Dio addRefreshTokenInterceptors(Dio dio) {
-    return dio..interceptors.add(RefreshTokenInterceptor());
+    return dio..interceptors.add(DioRefreshTokenInterceptor());
   }
 }

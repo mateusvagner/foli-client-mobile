@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../shared_preferences_keys.dart';
+import '../../data/shared_preferences_keys.dart';
 
-class RefreshTokenInterceptor  extends Interceptor {
-
+class DioRefreshTokenInterceptor extends Interceptor {
   @override
-  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     if (kDebugMode) {
       print('REQUEST[${options.method}] => PATH: ${options.path}');
     }
@@ -27,9 +27,11 @@ class RefreshTokenInterceptor  extends Interceptor {
   }
 
   @override
-  Future onResponse(Response response, ResponseInterceptorHandler handler) async {
+  Future onResponse(
+      Response response, ResponseInterceptorHandler handler) async {
     if (kDebugMode) {
-      print('RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+      print(
+          'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
     }
 
     // TODO Do something with response data
@@ -40,7 +42,8 @@ class RefreshTokenInterceptor  extends Interceptor {
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (kDebugMode) {
-      print('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+      print(
+          'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
     }
 
     // TODO Do something with response error
