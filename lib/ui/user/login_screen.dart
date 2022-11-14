@@ -50,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   content: Text('Token $token gerado com sucesso!'),
                 ),
               ),
+              Navigator.pushNamed(context, '/homeScreen'),
             })
         .onError((error, stackTrace) => {
               ScaffoldMessenger.of(context).showSnackBar(

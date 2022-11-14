@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/resource/new_user_resource.dart';
 import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
 import 'package:foli_client_mobile/service/user_service.dart';
-import 'package:foli_client_mobile/ui/user/login_screen.dart';
 
 import '../../service/dio_impl/dio_factory.dart';
 import '../../utils/text_form_field_validator.dart';
@@ -62,11 +61,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                      'Usuário ${createdUser?.name}  foi salvo com sucesso!'),
+                      'Usuário ${createdUser?.name}  foi criado com sucesso!'),
                 ),
               ),
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen())),
+              Navigator.pushNamed(context, '/login'),
             })
         .onError((error, stackTrace) => {
               ScaffoldMessenger.of(context).showSnackBar(

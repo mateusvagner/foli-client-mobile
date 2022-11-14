@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foli_client_mobile/ui/user/create_account_screen.dart';
-import 'package:foli_client_mobile/ui/user/login_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key, required this.title}) : super(key: key);
@@ -60,11 +58,7 @@ class _InitialScreenState extends State<InitialScreen> {
               child: OutlinedButton(
                 child: const Text("Crie uma conta"),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CreateAccountScreen()),
-                  );
+                  Navigator.pushNamed(context, '/createAccount');
                 },
               ),
             )
