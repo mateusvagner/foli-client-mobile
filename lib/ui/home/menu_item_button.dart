@@ -13,7 +13,7 @@ class MenuItemButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:  () => Navigator.pushNamed(context, menuItemViewModel.route),
+      onPressed: () => Navigator.pushNamed(context, menuItemViewModel.route),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

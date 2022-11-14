@@ -8,6 +8,6 @@ class MenuItemViewModel {
   MenuItemViewModel({
     required this.title,
     required this.icon,
-    required this.route
+    required this.route,
   });
 }

@@ -6,11 +6,22 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   final List<MenuItemViewModel> menuItems = [
-    MenuItemViewModel(title: "Criar Orçamento", icon: Icons.note_alt_rounded, route: '/'),
-    MenuItemViewModel(title: "Cadastrar Cliente", icon: Icons.person_add_alt_1_rounded, route: '/'),
-    MenuItemViewModel(title: "Cadastrar Fornecedor", icon: Icons.factory_rounded, route: '/'),
+    MenuItemViewModel(
+      title: "Criar Orçamento",
+      icon: Icons.note_alt_rounded,
+      route: '/',
+    ),
+    MenuItemViewModel(
+      title: "Cadastrar Cliente",
+      icon: Icons.person_add_alt_1_rounded,
+      route: '/',
+    ),
+    MenuItemViewModel(
+      title: "Cadastrar Fornecedor",
+      icon: Icons.factory_rounded,
+      route: '/',
+    ),
   ];
-
 
   @override
   Widget build(BuildContext context) {
