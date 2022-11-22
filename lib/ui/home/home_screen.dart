@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
     MenuItemViewModel(
       title: "Cadastrar Fornecedor",
       icon: Icons.factory_rounded,
-      route: '/',
+      route: '/newSupplierScreen',
     ),
   ];
 
