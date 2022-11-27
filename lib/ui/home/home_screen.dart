@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     MenuItemViewModel(
       title: "Cadastrar Cliente",
       icon: Icons.person_add_alt_1_rounded,
-      route: '/',
+      route: '/newCustomerScreen',
     ),
     MenuItemViewModel(
       title: "Cadastrar Fornecedor",

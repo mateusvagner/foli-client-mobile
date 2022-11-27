@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:foli_client_mobile/ui/customer/new_customer_screen.dart';
 import 'package:foli_client_mobile/ui/home/home_screen.dart';
+import 'package:foli_client_mobile/ui/supplier/new_supplier_screen.dart';
 import 'package:foli_client_mobile/ui/user/create_account_screen.dart';
 import 'package:foli_client_mobile/ui/user/login_screen.dart';
 
 import 'initial_screen.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const FoliApp());
 }
 
@@ -29,14 +34,25 @@ class FoliApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/homeScreen',
+      initialRoute: '/homeScreen', // TODO
       routes: {
         '/': (context) => const InitialScreen(title: 'FoliApp'),
         '/login': (context) => const LoginScreen(),
         '/createAccount': (context) => const CreateAccountScreen(),
         '/homeScreen': (context) => HomeScreen(),
+        '/newSupplierScreen': (context) => const NewSupplierScreen(),
+        '/newCustomerScreen': (context) => const NewCustomerScreen(),
       },
       // home: const InitialScreen(title: 'FoliApp'),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

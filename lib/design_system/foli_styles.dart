@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'foli_colors.dart';
+
 // Text Styles
 
 const TextStyle foliHeading1Style = TextStyle(
@@ -36,3 +38,16 @@ const TextStyle foliCaptionStyle = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w400,
 );
+
+// Decorations
+
+InputDecoration foliInputDecoration(String label) {
+  return InputDecoration(
+    labelText: label,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+    ).copyWith(
+      borderSide: const BorderSide(color: foliGreyLightColor),
+    ),
+  );
+}

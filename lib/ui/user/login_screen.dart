@@ -3,9 +3,10 @@ import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
 
 import '../../design_system/foli_sizes.dart';
 import '../../design_system/foli_styles.dart';
-import '../../service/dio_impl/dio_factory.dart';
-import '../../service/dio_impl/dio_user_service.dart';
-import '../../service/user_service.dart';
+import '../../web/service/dio_impl/dio_factory.dart';
+import '../../web/service/dio_impl/dio_user_service.dart';
+import '../../web/service/user_service.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

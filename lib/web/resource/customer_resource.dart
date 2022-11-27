@@ -1,18 +1,16 @@
 import 'dart:convert';
 
-class SupplierResource {
+class CustomerResource {
   String name;
   String phone;
   String email;
   String address;
-  String type; // Service or Product
 
-  SupplierResource({
+  CustomerResource({
     required this.name,
     required this.phone,
     required this.email,
     required this.address,
-    required this.type,
   });
 
   String getName() {
@@ -47,37 +45,36 @@ class SupplierResource {
     this.email = email;
   }
 
-  String getKind() {
-    return type;
-  }
-
-  void setKind(String type) {
-    this.type = type;
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'phone': phone,
       'email': email,
       'address': address,
-      'kind': type,
     };
   }
 
-  factory SupplierResource.fromMap(Map<String, dynamic> map) {
-    return SupplierResource(
+  factory CustomerResource.fromMap(Map<String, dynamic> map) {
+    return CustomerResource(
       name: map['name'] ?? '',
       phone: map['phone'] ?? '',
       email: map['email'] ?? '',
       address: map['address'] ?? '',
-      type: map['kind'] ?? '',
 
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory SupplierResource.fromJson(String source) =>
-      SupplierResource.fromMap(json.decode(source));
+  factory CustomerResource.fromJson(String source) =>
+      CustomerResource.fromMap(json.decode(source));
+
+  factory CustomerResource.empty() {
+    return CustomerResource(
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+    );
+  }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:foli_client_mobile/resource/new_user_resource.dart';
-import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
-import 'package:foli_client_mobile/service/user_service.dart';
 
 import '../../design_system/foli_sizes.dart';
 import '../../design_system/foli_styles.dart';
-import '../../service/dio_impl/dio_factory.dart';
 import '../../utils/text_form_field_validator.dart';
+import '../../web/resource/new_user_resource.dart';
+import '../../web/service/dio_impl/dio_factory.dart';
+import '../../web/service/dio_impl/dio_user_service.dart';
+import '../../web/service/user_service.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -18,8 +18,8 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final UserService _userService =
-      DioUserService(DioFactory.createDioForUser());
+  final UserService _userService = DioUserService(
+      DioFactory.addRefreshTokenInterceptors(DioFactory.createDioForUser()));
 
   String _name = "";
   String _email = "";
