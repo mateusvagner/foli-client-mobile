@@ -10,7 +10,7 @@ class DioRefreshTokenInterceptor extends Interceptor {
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     if (kDebugMode) {
-      print('REQUEST[${options.method}] => PATH: ${options.path}');
+      print('REQUEST[${options.method}] => PATH: ${options.baseUrl}${options.path}');
     }
 
     if (options.headers.containsKey("requiresAuthorization")) {
@@ -32,7 +32,7 @@ class DioRefreshTokenInterceptor extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     if (kDebugMode) {
       print(
-          'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+          'RESPONSE[${response.statusCode}, ${response.statusMessage}] => PATH: ${response.requestOptions.path}');
     }
 
     // TODO Do something with response data
