@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/ui/customer/new_customer_screen.dart';
 import 'package:foli_client_mobile/ui/home/home_screen.dart';
+import 'package:foli_client_mobile/ui/quote/create_quote_screen.dart';
 import 'package:foli_client_mobile/ui/supplier/new_supplier_screen.dart';
 import 'package:foli_client_mobile/ui/user/create_account_screen.dart';
 import 'package:foli_client_mobile/ui/user/login_screen.dart';
@@ -35,14 +36,7 @@ class FoliApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/homeScreen', // TODO
-      routes: {
-        '/': (context) => const InitialScreen(title: 'FoliApp'),
-        '/login': (context) => const LoginScreen(),
-        '/createAccount': (context) => const CreateAccountScreen(),
-        '/homeScreen': (context) => HomeScreen(),
-        '/newSupplierScreen': (context) => const NewSupplierScreen(),
-        '/newCustomerScreen': (context) => const NewCustomerScreen(),
-      },
+      routes: AppRotes.rotes,
       // home: const InitialScreen(title: 'FoliApp'),
     );
   }
@@ -55,4 +49,17 @@ class MyHttpOverrides extends HttpOverrides {
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
   }
+}
+
+class AppRotes {
+
+  static Map<String, WidgetBuilder> rotes = {
+    '/': (context) => const InitialScreen(title: 'FoliApp'),
+    '/login': (context) => const LoginScreen(),
+    '/createAccount': (context) => const CreateAccountScreen(),
+    '/homeScreen': (context) => HomeScreen(),
+    '/newSupplierScreen': (context) => const NewSupplierScreen(),
+    '/newCustomerScreen': (context) => const NewCustomerScreen(),
+    '/createQuoteScreen': (context) => const CreateQuoteScreen(),
+  };
 }
