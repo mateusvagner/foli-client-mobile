@@ -57,7 +57,8 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
                   content: Text('Cliente salvo com sucesso!'),
                 ),
               ),
-              Navigator.pushNamed(context, '/homeScreen'),
+              // Navigator.pushNamed(context, '/homeScreen'),
+              Navigator.pop(context),
             })
         .onError((error, stackTrace) => {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -73,65 +74,62 @@ class _NewCustomerScreenState extends State<NewCustomerScreen> {
         title: const Text("Novo Cliente"),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        padding: const EdgeInsets.all(24.0),
         child: Form(
           key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setName,
-                    decoration: foliInputDecoration('Nome do Cliente')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setPhone,
-                    decoration: foliInputDecoration('Telefone')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setEmail,
-                    decoration: foliInputDecoration('E-mail')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setAddress,
-                    decoration: foliInputDecoration('Endereço')),
-                const SizedBox(
-                  height: 32.0,
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints.tightFor(
-                      width: screenWidthPercentage(context, percentage: 60),
-                      height: 48),
-                  child: ElevatedButton(
-                    child: const Text(
-                      "Salvar",
-                      style: foliSubheadingStyle,
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        saveNewCustomer(context);
-                      }
-                    },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setName,
+                  decoration: foliInputDecoration('Nome do Cliente')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setPhone,
+                  decoration: foliInputDecoration('Telefone')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setEmail,
+                  decoration: foliInputDecoration('E-mail')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setAddress,
+                  decoration: foliInputDecoration('Endereço')),
+              const SizedBox(
+                height: 32.0,
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints.tightFor(
+                    width: screenWidthPercentage(context, percentage: 60),
+                    height: 48),
+                child: ElevatedButton(
+                  child: const Text(
+                    "Salvar",
+                    style: foliSubheadingStyle,
                   ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      saveNewCustomer(context);
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

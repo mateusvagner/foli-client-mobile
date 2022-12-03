@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foli_client_mobile/design_system/design_system.dart';
 import 'package:foli_client_mobile/web/resource/customer_resource.dart';
+import 'package:foli_client_mobile/web/resource/quote_item_resource.dart';
+import 'package:foli_client_mobile/web/resource/quote_resource.dart';
 import 'package:foli_client_mobile/web/resource/supplier_resource.dart';
+import 'package:foli_client_mobile/web/service/quote_service.dart';
 
-import '../../domain/quote/quote_item.dart';
 import '../../utils/text_form_field_validator.dart';
 import '../../web/service/customer_service.dart';
 import '../../web/service/dio_impl/dio_customer_service.dart';
 import '../../web/service/dio_impl/dio_factory.dart';
+import '../../web/service/dio_impl/dio_quote_service.dart';
 import '../../web/service/dio_impl/dio_supplier_service.dart';
 import '../../web/service/supplier_service.dart';
 
@@ -30,18 +33,25 @@ class _CreateQuoteScreenState extends State<CreateQuoteScreen> {
       DioFactory.addRefreshTokenInterceptors(
           DioFactory.createDioForRegister()));
 
+  final QuoteService _quoteService = DioQuoteService(
+      DioFactory.addRefreshTokenInterceptors(DioFactory.createDioForQuote()));
+
   CustomerResource? _selectedCustomer;
 
   late Future<List<CustomerResource>> _allCustomers;
   late Future<List<SupplierResource>> _allSuppliers;
 
+  late Future<List<QuoteResource>> _quotes;
+
   final _itemWidgets = <Widget>[];
 
   String _projectName = "";
-  final _quoteItems = <QuoteItem>[];
+
+  final _quoteItems = <QuoteItemResource>[];
 
   Future<List<CustomerResource>> fetchCustomers() async {
     List<CustomerResource> customers = await _customerService.getAllCustomers();
+
     return customers;
   }
 
@@ -58,7 +68,7 @@ class _CreateQuoteScreenState extends State<CreateQuoteScreen> {
 
   void addItemWidget() {
     setState(() {
-      var quote = QuoteItem.empty();
+      var quote = QuoteItemResource.empty();
       _quoteItems.add(quote);
       _itemWidgets.add(itemWidget(quote));
     });
@@ -135,7 +145,8 @@ class _CreateQuoteScreenState extends State<CreateQuoteScreen> {
                         textAlign: TextAlign.left,
                       ),
                     )
-                  : Container(), // TODO adicionar botao de criar cliente .. pegar cliente recem cadastrado
+                  : Container(),
+              // TODO adicionar botao de criar cliente .. pegar cliente recem cadastrado
               const SizedBox(
                 height: 12.0,
               ),
@@ -167,11 +178,7 @@ class _CreateQuoteScreenState extends State<CreateQuoteScreen> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      print(_projectName);
-                      for (QuoteItem quoteItem in _quoteItems) {
-                        print(quoteItem.item);
-                        print(quoteItem.quantity);
-                      }
+                      saveQuote(context);
                     }
                   },
                 ),
@@ -183,7 +190,33 @@ class _CreateQuoteScreenState extends State<CreateQuoteScreen> {
     );
   }
 
-  Widget itemWidget(QuoteItem quoteItem) {
+  void saveQuote(BuildContext context) {
+    QuoteResource quoteResource = QuoteResource(
+      _quoteItems,
+      projectName: _projectName,
+      customer: _selectedCustomer!,
+    );
+    _quoteService
+        .postNewQuote(quoteResource)
+        .then((value) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content:
+                      Text('Orçamento gerado com sucesso!'),
+                ),
+              ),
+              Navigator.pop(context),
+            })
+        .onError((error, stackTrace) => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Algo de errado!'),
+                ),
+              ),
+            });
+  }
+
+  Widget itemWidget(QuoteItemResource quoteItem) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(

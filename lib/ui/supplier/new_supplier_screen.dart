@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/design_system/design_system.dart';
+
 import '../../utils/text_form_field_validator.dart';
 import '../../web/resource/supplier_resource.dart';
 import '../../web/service/dio_impl/dio_factory.dart';
@@ -77,77 +78,73 @@ class _NewSupplierScreenState extends State<NewSupplierScreen> {
         title: const Text("Novo Fornecedor"),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        padding: const EdgeInsets.all(24.0),
         child: Form(
           key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setName,
-                    decoration: foliInputDecoration('Nome do Fornecedor')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setPhone,
-                    decoration: foliInputDecoration('Telefone')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setEmail,
-                    decoration: foliInputDecoration('E-mail')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setAddress,
-                    decoration: foliInputDecoration('Endereço')),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                TextFormField(
-                    validator: TextFormFieldValidator.requiredField,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onChanged: setType,
-                    decoration: foliInputDecoration('Tipo (Serviço/Produto)')),
-                const SizedBox(
-                  height: 32.0,
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints.tightFor(
-                      width: screenWidthPercentage(context, percentage: 60),
-                      height: 48),
-                  child: ElevatedButton(
-                    child: const Text(
-                      "Salvar",
-                      style: foliSubheadingStyle,
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        saveNewSupplier(context);
-                      }
-                    },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setName,
+                  decoration: foliInputDecoration('Nome do Fornecedor')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setPhone,
+                  decoration: foliInputDecoration('Telefone')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setEmail,
+                  decoration: foliInputDecoration('E-mail')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setAddress,
+                  decoration: foliInputDecoration('Endereço')),
+              const SizedBox(
+                height: 24.0,
+              ),
+              TextFormField(
+                  validator: TextFormFieldValidator.requiredField,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setType,
+                  decoration: foliInputDecoration('Tipo (Serviço/Produto)')),
+              const SizedBox(
+                height: 32.0,
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints.tightFor(
+                    width: screenWidthPercentage(context, percentage: 60),
+                    height: 48),
+                child: ElevatedButton(
+                  child: const Text(
+                    "Salvar",
+                    style: foliSubheadingStyle,
                   ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      saveNewSupplier(context);
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-
 }
