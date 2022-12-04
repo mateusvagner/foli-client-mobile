@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:foli_client_mobile/resource/new_user_resource.dart';
-import 'package:foli_client_mobile/service/dio_impl/dio_user_service.dart';
-import 'package:foli_client_mobile/service/user_service.dart';
 
-import '../../service/dio_impl/dio_factory.dart';
+import '../../design_system/foli_sizes.dart';
+import '../../design_system/foli_styles.dart';
 import '../../utils/text_form_field_validator.dart';
+import '../../web/resource/new_user_resource.dart';
+import '../../web/service/dio_impl/dio_factory.dart';
+import '../../web/service/dio_impl/dio_user_service.dart';
+import '../../web/service/user_service.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -16,7 +18,8 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final UserService _userService = DioUserService(DioFactory.createDio());
+  final UserService _userService = DioUserService(
+      DioFactory.addRefreshTokenInterceptors(DioFactory.createDioForUser()));
 
   String _name = "";
   String _email = "";
@@ -79,64 +82,72 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       appBar: AppBar(
         title: const Text("Crie sua conta"),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextFormField(
-                validator: TextFormFieldValidator.nameValidator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: setName,
-                decoration: const InputDecoration(labelText: 'Nome'),
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              TextFormField(
-                validator: TextFormFieldValidator.emailValidator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: setEmail,
-                decoration: const InputDecoration(labelText: 'E-mail'),
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              TextFormField(
-                validator: TextFormFieldValidator.passwordValidator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                obscureText: _isPasswordHidden,
-                onChanged: setPassword,
-                decoration: InputDecoration(
-                  labelText: "Senha",
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordHidden
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
+                  validator: TextFormFieldValidator.nameValidator,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setName,
+                  decoration: const InputDecoration(labelText: 'Nome'),
+                ),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                TextFormField(
+                  validator: TextFormFieldValidator.emailValidator,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setEmail,
+                  decoration: const InputDecoration(labelText: 'E-mail'),
+                ),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                TextFormField(
+                  validator: TextFormFieldValidator.passwordValidator,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  obscureText: _isPasswordHidden,
+                  onChanged: setPassword,
+                  decoration: InputDecoration(
+                    labelText: "Senha",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordHidden
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: changePasswordVisibility,
                     ),
-                    onPressed: changePasswordVisibility,
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: ElevatedButton(
-                  child: const Text("Criar conta"),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      saveNewUser(context);
-                    }
-                  },
+                const SizedBox(
+                  height: 32.0,
                 ),
-              ),
-            ],
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(
+                      width: screenWidthPercentage(context, percentage: 60),
+                      height: 48),
+                  child: ElevatedButton(
+                    child: const Text(
+                      "Criar conta",
+                      style: foliSubheadingStyle,
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        saveNewUser(context);
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

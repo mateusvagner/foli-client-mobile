@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foli_client_mobile/utils/text_form_field_validator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../service/dio_impl/dio_factory.dart';
-import '../../service/dio_impl/dio_user_service.dart';
-import '../../service/user_service.dart';
+import '../../design_system/foli_sizes.dart';
+import '../../design_system/foli_styles.dart';
+import '../../web/service/dio_impl/dio_factory.dart';
+import '../../web/service/dio_impl/dio_user_service.dart';
+import '../../web/service/user_service.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,7 +18,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final UserService _userService = DioUserService(DioFactory.createDio());
+  final UserService _userService =
+      DioUserService(DioFactory.createDioForUser());
 
   String _password = "";
   String _email = "";
@@ -65,55 +68,63 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text("Login"),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextFormField(
-                validator: TextFormFieldValidator.emailValidator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: setEmail,
-                decoration: const InputDecoration(labelText: 'E-mail'),
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              TextFormField(
-                validator: TextFormFieldValidator.passwordValidator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                obscureText: _isPasswordHidden,
-                onChanged: setPassword,
-                decoration: InputDecoration(
-                  labelText: "Senha",
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordHidden
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
+                  validator: TextFormFieldValidator.emailValidator,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: setEmail,
+                  decoration: const InputDecoration(labelText: 'E-mail'),
+                ),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                TextFormField(
+                  validator: TextFormFieldValidator.passwordValidator,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  obscureText: _isPasswordHidden,
+                  onChanged: setPassword,
+                  decoration: InputDecoration(
+                    labelText: "Senha",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordHidden
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: changePasswordVisibility,
                     ),
-                    onPressed: changePasswordVisibility,
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: ElevatedButton(
-                  child: const Text("Login"),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      logInUser(context);
-                    }
-                  },
+                const SizedBox(
+                  height: 32.0,
                 ),
-              ),
-            ],
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(
+                      width: screenWidthPercentage(context, percentage: 60),
+                      height: 48),
+                  child: ElevatedButton(
+                    child: const Text(
+                      "Login",
+                      style: foliSubheadingStyle,
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        logInUser(context);
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
